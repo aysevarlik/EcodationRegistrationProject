@@ -3,6 +3,7 @@ package com.aysevarlik.userregistration;
 import com.aysevarlik.userregistration.data.entity.UserEntity;
 import com.aysevarlik.userregistration.data.repository.IUserRepository;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
@@ -20,8 +21,8 @@ class UserRegistrationApplicationTests implements IUnitTest{
     @Override
     @Test
     public void saveUser() {
-        UserEntity entity = UserEntity.builder().userName("zeynep").userSurname("varlık")
-                .userEmail("zeyno@gmail.com").userPassword("123").build();
+        UserEntity entity = UserEntity.builder().userName("ayse").userSurname("varlık")
+                .userEmail("ayse@gmail.com").userPassword("asd").build();
         repository.save(entity);
         assertNotNull(repository.findByUserId(1L));
         System.out.println(repository.findByName("ayse"));
@@ -33,7 +34,8 @@ class UserRegistrationApplicationTests implements IUnitTest{
         List<UserEntity> userList=repository.findAll();
         assertThat(userList).size().isGreaterThan(0);
         System.out.println(userList);
-        System.out.println(repository.findBySurname("varlık"));
+        System.out.println(repository.findByName("ayse"));
+        System.out.println(repository.findByEmail("ayse@gmail.com"));
     }
 
     @Override
@@ -42,9 +44,7 @@ class UserRegistrationApplicationTests implements IUnitTest{
         UserEntity user=repository.findByUserId(1L).get();
         assertEquals("ayse",user.getUserName());
         System.out.println(user);
-
-        System.out.println(repository.findByEmail("zeyno@gmail.com"));
-
+        System.out.println(repository.findBySurname("varlık"));
     }
 
     @Override
